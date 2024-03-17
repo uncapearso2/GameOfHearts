@@ -22,133 +22,42 @@ export class HeartsView {
 //////choose name functionality not working, need to work on robots for those pts
 ///could animate cards moving in the playcard area OR could just add sound effect for .passcards and .playcards !!!!!
     render(render_div) {
+        alert('in render')
         var robots_names = ["Robot 1", "Robot 2", "Robot 3"]; //initialize list of robot names
         // loadWelcome();
         var nameaccp = false;
-        alert('render')
+       
         window.addEventListener('DOMContentLoaded', loadWelcome);
-        // if(!nameaccp){
-        //     alert('')
-        //    'DOMContentLoaded', loadWelcome);
-        // }
+       
+        
+        var passsound = document.createElement("audio");
+                                        passsound.src = `Sound/Pass.mp3`
         
         
-        
-        // robots_names[0] = 'Robot 2'
-        
-
-        // window.addEventListener('unplayablecard', ()=>{
-        //     alert("Card not playable here. Try Again!")
-        // })
-        function loadWelcome(){
-            alert('in welcome')
-            document.removeEventListener('DOMContentLoaded', loadWelcome)
-            
-        // var choosingNames = false;
-            var welcome_div = document.createElement('div'); //create div for program
-            welcome_div.setAttribute("id","welcome")
-        
-            var welcome_message = document.createElement('p'); //create p for welcome message
-            var nodeText = document.createTextNode("Welcome to Hearts! Please enter your name:");
-            welcome_message.appendChild(nodeText);
-            welcome_message.setAttribute('id','message_box')
-            var enter_name = document.createElement('form');
-            enter_name.setAttribute("id", "name_form")
-        // enter_name.setAttribute("method", "post");
-        // enter_name.setAttribute("action", "submit.php"); //unsure about
-            var name = document.createElement('input');
-            name.setAttribute("type", "text");
-            name.setAttribute("name","PlayerName");
-            name.setAttribute("placeholder", "Name");
-            name.setAttribute("id", "name_field")
-        
-            var select_robot_names = document.createElement('input');
-            select_robot_names.setAttribute("type", "radio");
-            select_robot_names.setAttribute("id", "name_robots");
-            select_robot_names.setAttribute("name", "robot_name");
-            select_robot_names.setAttribute("value", "Choose Robot Names");
-            var choose_label = document.createElement('label');
-            choose_label.setAttribute("for", "name_robots");
-            choose_label.innerHTML= "Choose Robot Names";
-        
-        
-            var default_robot_names = document.createElement('input');
-            default_robot_names.setAttribute("type", "radio");
-            default_robot_names.setAttribute("id", "default_robots");
-            default_robot_names.setAttribute("name", "robot_name");
-            default_robot_names.setAttribute("value", "Default Robot Names");
-            
-            var default_label = document.createElement('label');
-            default_label.setAttribute("for", "default_robots");
-            default_label.innerHTML= "Default Robot Names";
-            
-        
-            var submit = document.createElement("input");
-            submit.setAttribute("type", "submit");
-            submit.setAttribute("value", "Submit");
-            submit.setAttribute("id", "submit_button");
-            
-            enter_name.appendChild(name); //add name piece to form
-            enter_name.appendChild(document.createElement('br')); //break between player name and robot name selection
-            enter_name.appendChild(select_robot_names);
-            enter_name.appendChild(choose_label);
-            enter_name.appendChild(document.createElement('br'));
-            enter_name.appendChild(default_robot_names);
-            enter_name.appendChild(default_label);
-            enter_name.appendChild(document.createElement('br'));
-            enter_name.appendChild(submit); //add submit button to form
-        
-            welcome_div.appendChild(welcome_message);
-            welcome_div.appendChild(enter_name);
-            document.getElementById('main').append(welcome_div);
-            submit.addEventListener("click", submitresponse); //submit button response
-            
-        }
-        
-            function submitresponse(){
-                
-            var choose_names = false;
-                var player_name = (document.getElementById("name_field").value).toString(); //get player response and make it a string
-                player_name = player_name.trim(); //get rid of any whitespaces/prevent players from being named " "
-                if(player_name.length < 1) {
-                    alert("Please enter your name to continue.");
-                } else {
-                    alert(`Your name has been set to ${player_name}`);
-                    choose_names = document.getElementById('name_robots').checked;
-                    // if(choose_names) { //player wants to choose game
-                        window.dispatchEvent(new CustomEvent('setRobotNames', {detail: {
-                            name: player_name,
-                            choosing_names: choose_names
-                        }}))
-                    // } 
-                    // else {
-                    //     document.dispatchEvent(new CustomEvent('nameaccepted', {detail: {
-                    //         name: player_name,
-                    //         choosing_names: choose_names
-                    //     }}));
-                    // }
-                    
-                    
-                    submit.removeEventListener("click", submitresponse);
-                    document.getElementById('welcome').removeChild(document.getElementById('message_box'));
-                    document.getElementById('welcome').removeChild(document.getElementById('name_form'));
-        
-                    // return player_name;
-                }
-        }
         
         
             window.addEventListener('setRobotNames',(e)=>{
                 e.preventDefault()
-                alert('robot setting')
-                // window.removeEventListener('DOMContentLoaded', loadWelcome);
-                //setting robot names functionality
+                
+               
+                
                 let pn = e.detail.name
                 let cn = e.detail.choosing_names
                 let rob_names = ["","",""];
-                // document.getElementById('main').removeChild(document.getElementById('welcome'))
+
                 document.getElementById('welcome').removeChild(document.getElementById('message_box'));
                 document.getElementById('welcome').removeChild(document.getElementById('name_form'));
+
+                if(!cn || rob_names[0].length > 0 && rob_names[1].length > 0 && rob_names[2].length > 0){
+                  
+                    window.dispatchEvent(new CustomEvent('nameaccepted', {detail: {
+                        name: pn,
+                        choosing_names: cn,
+                        r1: "",
+                        r2: "",
+                        r3: ""
+                    }}));
+                }
                 
                 if(cn){
                     
@@ -196,7 +105,7 @@ export class HeartsView {
             
             robotname_div.appendChild(robnam_msg);
             robotname_div.appendChild(enter_names);
-            document.getElementById('welcome').append(robotname_div);
+            document.getElementById('welcome').appendChild(robotname_div);
             
             sub.addEventListener("click", ()=>{
               
@@ -205,12 +114,20 @@ export class HeartsView {
             let rob2 = (document.getElementById("RobotName2").value).toString()
             let rob3 = (document.getElementById("RobotName3").value).toString()
             if(rob1.length > 0 && rob2.length > 0 && rob3.length > 0){
-                rob_names[0] = rob1
-                rob_names[1] = rob2
-                rob_names[2] = rob3
+                // rob_names[0] = rob1
+                // rob_names[1] = rob2
+                // rob_names[2] = rob3
+                window.dispatchEvent(new CustomEvent('nameaccepted', {detail: {
+                    name: pn,
+                    choosing_names: cn,
+                    r1: rob1,
+                    r2: rob2,
+                    r3: rob3
+                }}));
+                document.getElementById('welcome').removeChild(document.getElementById(rob))
             } else {
-                
-                alert('aaa')
+                alert('no')
+           
                 document.getElementById("RobotName1").style.border = 'thin solid red'
                 document.getElementById("RobotName2").style.border = 'thin solid red'
                 document.getElementById("RobotName3").style.border = 'thin solid red'
@@ -224,22 +141,17 @@ export class HeartsView {
             
             });
                 }
-                if(!cn || rob_names[0].length > 0 && rob_names[1].length > 0 && rob_names[2].length > 0){
-                    alert('name acccc')
-                    window.dispatchEvent(new CustomEvent('nameaccepted', {detail: {
-                        name: pn,
-                        choosing_names: cn
-                    }}));
-                }
+                
             
                 
             })
             window.addEventListener('nameaccepted',(e) => {
-            alert('yes name accet')
+            
             nameaccp = true;
             // window.removeEventListener('DOMContentLoaded', loadWelcome);
             var username = e.detail.name;
             var choosing = e.detail.choosing_names
+            alert(e.detail.r1)
             if(choosing){
         
             } else {
@@ -306,7 +218,7 @@ export class HeartsView {
             rob3lbl.innerHTML = `${robots_names[2]}`
             rob3lbl.setAttribute('id','rob3lbl')
             gamescreen.appendChild(rob3lbl)
-            document.getElementById('main').appendChild(gamescreen);
+            document.getElementById('welcome').appendChild(gamescreen);
             gamescreen.appendChild(playscreen);
             
             let usersnamelabel = document.createElement('p')
@@ -383,26 +295,7 @@ export class HeartsView {
                 
                 let ty = e.detail.type;
                 let cs = e.detail.cards;
-                // alert(ty)
-                // alert(cs)
                 
-                
-                // southdiv.innerHTML = "";
-                // var cards = [];
-                // cards = this.#model.getHand('south').getCards();
-                // for(let i = 0; i < cards.length; i++) {
-                //     let img = document.createElement('img');
-                //     let cardtitle = cards[i].toString().split(" ");
-                //     img.setAttribute('class',"cardpics")
-                //     img.setAttribute('id',`${cardtitle[0]}${cardtitle[2]}`)
-                //     img.src = `Pictures/${cardtitle[0]}${cardtitle[2]}.png`
-                //     southdiv.appendChild(img);
-                //     img.addEventListener('click', ()=> {
-                //         window.dispatchEvent(new CustomEvent('imgclicked', {detail: {
-                //             clickedcard: cardtitle
-                //         }}));
-                //     });
-                // }
                     if(ty == "add") {
                         play.removeChild(southdiv);
                         document.getElementById('centerDisplay').append('You have received the following cards: \n')
@@ -526,6 +419,7 @@ export class HeartsView {
                                     play.appendChild(southdiv);
                                     
                                     if(passinglist.length == 3){
+                                        passsound.play()
                                         this.#controller.passCards('south',[passinglist[0],passinglist[1],passinglist[2]]);
                                         
                                     }
@@ -631,6 +525,8 @@ export class HeartsView {
                                     play.appendChild(southdiv);
                                     
                                     if(passinglist.length == 3){
+                                        
+                                        passsound.play()
                                         this.#controller.passCards('south',[passinglist[0],passinglist[1],passinglist[2]]);
                                         
                                         
@@ -691,6 +587,11 @@ export class HeartsView {
                             //let playerHand = this.#model.getHand('south');
                             if(shand.contains(passCard) && this.#controller.isPlayable('south',passCard)){
                                 // document.getElementById(cardid).style.border = "thin solid pink"
+                                let rand = Math.ceil(Math.random()*4);
+                                let playsound = document.createElement("audio");
+                                    playsound.src = `Sound/CardDown${rand}.mp3`
+                                    playsound.play()
+                                   
                                 this.#controller.playCard('south', passCard);
                                 let cardname = passCard.toString().split(" ");
                                 let idcard = `${cardname[0]}${cardname[2]}`
@@ -705,8 +606,13 @@ export class HeartsView {
                                     southdiv.removeChild(cardobj);
                                     
                                     play.appendChild(southdiv);
+                                    
+                                    
+                                    
                             } else {
-                                // alert("1Card not playable here. Try Again!")
+                                var err = document.createElement("audio");
+                                err.src = "Sound/Error_39.wav"
+                                err.play()
                             }
                         }) 
                 }
@@ -733,41 +639,7 @@ export class HeartsView {
             document.getElementById('centerDisplay').append("Trick started\n");
             if (this.#model.getCurrentTrick().nextToPlay() == 'south') {
                 document.getElementById('centerDisplay').append("Your turn to play. Click a card of your choice to get the trick kicked off.\n");
-                // document.getElementById('centerDisplay').append("Your hand:\n" + this.#model.getHand('south').toString());
-                // window.addEventListener('imgclicked', (e)=> {
-                    
-                //     let clickedcard = e.detail.clickedcard
-                //     let clickedrank = clickedcard[0];
-                        
-                //         let suit = clickedcard[2];
-                //         let cardid = `${clickedrank}${suit}`
-
-                //         if(clickedrank == 'jack'){
-                //             clickedrank = 11
-                //        } else if(clickedrank =='queen') {
-                //         clickedrank = 12
-                //        } else if(clickedrank =='king') {
-                //         clickedrank = 13
-                //        } else if(clickedrank =='ace') {
-                //         clickedrank = 14
-                //        }
-                        
-                //         let passCard = new Card(suit, clickedrank);
-                //         //let playerHand = this.#model.getHand('south');
-                //         if(this.#controller.isPlayable('south',passCard)){
-                //             // document.getElementById(cardid).style.border = "thin solid pink"
-                //             this.#controller.playCard('south', passCard);
-                //             let cardobj = document.getElementById(cardid);
-                //                 let southdiv = document.getElementById('southpf');
-                //                 let play = document.getElementById('playscreen');
-                //                 play.removeChild(southdiv);
-                //                 southdiv.remove(cardobj);
-                                
-                //                 play.appendChild(southdiv);
-                //         } else {
-                //             // alert("1Card not playable here. Try Again!")
-                //         }
-                //     })
+               
             }
         });
     
@@ -807,43 +679,7 @@ export class HeartsView {
 
             if (this.#model.getCurrentTrick().nextToPlay() == 'south') {
                 document.getElementById('centerDisplay').append("Your turn to play. Click any viable card.\n");
-                // // document.getElementById('centerDisplay').append("Your hand:\n" + this.#model.getHand('south').toString());
-                // window.addEventListener('imgclicked', (e)=> {
-                    
-                //     let clickedcard = e.detail.clickedcard
-                //     let clickedrank = clickedcard[0];
-                        
-                //         let suit = clickedcard[2];
-                //         let cardid = `${clickedrank}${suit}`
-
-                //         if(clickedrank == 'jack'){
-                //             clickedrank = 11
-                //        } else if(clickedrank =='queen') {
-                //         clickedrank = 12
-                //        } else if(clickedrank =='king') {
-                //         clickedrank = 13
-                //        } else if(clickedrank =='ace') {
-                //         clickedrank = 14
-                //        }
-                        
-                //         let passCard = new Card(suit, clickedrank);
-                //         //let playerHand = this.#model.getHand('south');
-                //         if(this.#controller.isPlayable('south',passCard)){
-                //             // document.getElementById(cardid).style.border = "thin solid pink"
-                //             this.#controller.playCard('south', passCard);
-                //             let cardobj = document.getElementById(cardid);
-                //                 let southdiv = document.getElementById('southpf');
-                //                 let play = document.getElementById('playscreen');
-                //                 play.removeChild(southdiv);
-                //                 southdiv.remove(cardobj);
-                               
-                                
-                //                 play.appendChild(southdiv);
-                //         } else {
-                //             // window.dispatchEvent(new CustomEvent('unplayablecard'))
-                //             // window.dispa
-                //         }
-                //     })
+               
             }
         });
     
@@ -923,3 +759,98 @@ this.#controller.startGame(robots_names[0], robots_names[1], 'You', robots_names
 
 
 
+function loadWelcome(){
+    alert('in welcome')
+    document.removeEventListener('DOMContentLoaded', loadWelcome)
+    
+// var choosingNames = false;
+    var welcome_div = document.createElement('div'); //create div for program
+    welcome_div.setAttribute("id","welcome")
+
+    var welcome_message = document.createElement('p'); //create p for welcome message
+    var nodeText = document.createTextNode("Welcome to Hearts! Please enter your name:");
+    welcome_message.appendChild(nodeText);
+    welcome_message.setAttribute('id','message_box')
+    var enter_name = document.createElement('form');
+    enter_name.setAttribute("id", "name_form")
+// enter_name.setAttribute("method", "post");
+// enter_name.setAttribute("action", "submit.php"); //unsure about
+    var name = document.createElement('input');
+    name.setAttribute("type", "text");
+    name.setAttribute("name","PlayerName");
+    name.setAttribute("placeholder", "Name");
+    name.setAttribute("id", "name_field")
+
+    var select_robot_names = document.createElement('input');
+    select_robot_names.setAttribute("type", "radio");
+    select_robot_names.setAttribute("id", "name_robots");
+    select_robot_names.setAttribute("name", "robot_name");
+    select_robot_names.setAttribute("value", "Choose Robot Names");
+    var choose_label = document.createElement('label');
+    choose_label.setAttribute("for", "name_robots");
+    choose_label.innerHTML= "Choose Robot Names";
+
+
+    var default_robot_names = document.createElement('input');
+    default_robot_names.setAttribute("type", "radio");
+    default_robot_names.setAttribute("id", "default_robots");
+    default_robot_names.setAttribute("name", "robot_name");
+    default_robot_names.setAttribute("value", "Default Robot Names");
+    
+    var default_label = document.createElement('label');
+    default_label.setAttribute("for", "default_robots");
+    default_label.innerHTML= "Default Robot Names";
+    
+
+    var submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Submit");
+    submit.setAttribute("id", "submit_button");
+    
+    enter_name.appendChild(name); //add name piece to form
+    enter_name.appendChild(document.createElement('br')); //break between player name and robot name selection
+    enter_name.appendChild(select_robot_names);
+    enter_name.appendChild(choose_label);
+    enter_name.appendChild(document.createElement('br'));
+    enter_name.appendChild(default_robot_names);
+    enter_name.appendChild(default_label);
+    enter_name.appendChild(document.createElement('br'));
+    enter_name.appendChild(submit); //add submit button to form
+
+    welcome_div.appendChild(welcome_message);
+    welcome_div.appendChild(enter_name);
+    document.getElementById('main').append(welcome_div);
+    document.getElementById('submit_button').addEventListener("click", submitresponse); //submit button response
+    
+}
+
+
+    function submitresponse(){
+        
+    var choose_names = false;
+        var player_name = (document.getElementById("name_field").value).toString(); //get player response and make it a string
+        player_name = player_name.trim(); //get rid of any whitespaces/prevent players from being named " "
+        if(player_name.length < 1) {
+            var ee = document.createElement("audio");
+                ee.src = "Sound/Error_39.wav"
+                        ee.play()
+            alert("Please enter your name to continue.");
+            document.getElementById('main').removeChild(document.getElementById('welcome'));
+            // document.getElementById('welcome').removeChild(document.getElementById('name_form'));
+            loadWelcome();
+        } else {
+            alert(`Your name has been set to ${player_name}`);
+            choose_names = document.getElementById('name_robots').checked;
+            // if(choose_names) { //player wants to choose game
+                window.dispatchEvent(new CustomEvent('setRobotNames', {detail: {
+                    name: player_name,
+                    choosing_names: choose_names
+                }}))
+            
+            
+            
+                document.getElementById('submit_button').removeEventListener("click", submitresponse); 
+            
+            // return player_name;
+        }
+}

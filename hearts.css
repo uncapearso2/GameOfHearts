@@ -120,6 +120,10 @@ input[type='radio']{
     bottom:0;
 }
 
+#centerDisplay{
+    background-color: lightpink;
+}
+
 .top{
     position: absolute;
     top:20%;
