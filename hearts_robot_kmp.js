@@ -10,6 +10,7 @@ export class HeartsRobotKmp {
 
         this.#model.addEventListener('stateupdate', () => {
             let state = this.#model.getState();
+
             if ((state == 'passing') && (this.#model.getPassing() != 'none')) {
                 let hand = this.#model.getHand(this.#position);
                 let cards_to_pass = hand.getCards()

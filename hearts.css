@@ -1,0 +1,155 @@
+.centered{
+    margin: auto;
+    position: relative;
+    left: auto;
+    -ms-transform: translateX(-50%);
+    transform: translateX(auto);
+}
+
+
+/* .rotate{
+    transform: rotate(90deg);
+} */
+
+*{
+    text-align:center;
+}
+
+
+.container{ /*centers the playing screen inside the whole game window!*/
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+#northpf{
+    width: 77%;
+    height:13%;
+    
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    transform: scale(-1, -1);
+}
+
+#eastpf{
+    width: 13%;
+    height:77%;
+    
+    position: absolute;
+    right: 0;
+    top: 8%;
+    writing-mode:vertical-lr;
+    transform: scale(-1, -1);
+}
+
+#southpf{
+    width: 85%;
+    height:15%;
+   
+    position: absolute;
+    bottom: 0;
+}
+
+
+
+#westpf{
+    width: 13%;
+    height:77%;
+    margin: 0;
+    
+    position: absolute;
+    left: 0;
+    top: 8%;
+    writing-mode:vertical-lr;
+}
+
+.cardpics{
+    /* get img files to correct size */
+    /* width: 62px;
+    height: 91px; */
+    width: 50px;
+    height: 73px;
+}
+
+#welcome{
+    width:100%;
+    height: 100%;
+    margin: auto;
+    position: relative;
+    left: auto;
+    -ms-transform: translateX(-50%);
+    transform: translateX(auto);
+    align-items: center; 
+    justify-content: center;
+}
+
+.backcards{
+    width: 45px;
+    height: 66px;
+}
+
+.sidebackcards{
+    width: 66px;
+    height: 45px;
+    
+}
+
+.recentcard{
+    position: absolute;
+    top: 60%;
+    right:15%;
+    width: 100px;
+    height: 146px;
+}
+
+html{
+    background-color: palevioletred;
+}
+
+input{
+    background-color:silver;
+}
+
+input[type='radio']{
+    accent-color: purple;
+}
+
+#usersnamelabel{
+    position: absolute;
+    bottom:0;
+}
+
+.top{
+    position: absolute;
+    top:20%;
+    right:15%;
+    width: 100px;
+    height: 146px;
+}
+
+.middle{
+    position: absolute;
+    top:40%;
+    right:15%;
+    width: 100px;
+    height: 146px;
+}
+
+#rob1lbl{ 
+    position: absolute;
+    top:0;
+}
+
+#rob2lbl{
+    position: relative;
+    right:0;
+    writing-mode:vertical-lr;
+}
+
+#rob3lbl{
+    position: relative;
+    left:0;
+    writing-mode:vertical-lr;
+    transform: scale(-1, -1);
+}

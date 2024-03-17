@@ -14,7 +14,7 @@ export class HeartsController {
 
     #doAsync() {
         return new Promise((resolve) => setTimeout(resolve, 0));
-    }
+    } 
 
     startGame(north_name, east_name, south_name, west_name) {
         this.#cards_to_pass = {
@@ -57,7 +57,11 @@ export class HeartsController {
         }
 
         this.#cards_to_pass[position] = [...cards];
-
+        // alert(`N${this.#cards_to_pass['north']}`)
+        // alert(`E${this.#cards_to_pass['east']}`)
+        // alert(`S${this.#cards_to_pass['south']}`)
+        // alert(`W${this.#cards_to_pass['west']}`)
+        
         if (!HU.positions.find(p => this.#cards_to_pass[p].length == 0)) {
             this.#doAsync().then(() => {
                 this.#model.passCards(this.#cards_to_pass);
@@ -67,6 +71,8 @@ export class HeartsController {
                     south: [],
                     west: []
                 }
+                // alert(this.#cards_to_pass.north)
+                
             });
         }
     }

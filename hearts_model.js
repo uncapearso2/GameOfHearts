@@ -132,6 +132,7 @@ export class HeartsModel extends EventTarget {
     };
 
     setupGame (passing) {
+
         if ((this.#state == 'complete') || (this.#state == 'passing')) return;
 
         this.#passing = passing;

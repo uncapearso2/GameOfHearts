@@ -12,28 +12,28 @@ export class HeartsCLIView {
     }
 
     render(render_div) {
-        let out_ta = document.createElement('textarea');
+        let out_ta = document.createElement('textarea'); //load output
         out_ta.style.width = '800px';
         out_ta.style.height = '800px';
         out_ta.readOnly = true;
 
-        let cli = document.createElement('input');
+        let cli = document.createElement('input'); //load user input
         cli.style.width = '800px';
 
         cli.setAttribute('type', 'text');
 
         render_div.append(out_ta);
         render_div.append(document.createElement('br'));
-        render_div.append(cli);
+        render_div.append(cli); //put it all up
 
-        cli.addEventListener('change', () => {
-            let [component, method, ...args] = cli.value.split(" ");
+        cli.addEventListener('change', () => { //once input given
+            let [component, method, ...args] = cli.value.split(" "); //break it up
 
             out_ta.append(`> ${cli.value}\n`);
 
-            let res = null;
-            if (component == 'model') {
-                let res = this.#model[method](...args);
+            var res = null;
+            if (component == 'model') { //if the model has input
+                res = this.#model[method](...args);
                 if ((res instanceof Hand) || (res instanceof Trick)) {
                     out_ta.append(`${res.toString()}\n`);
                 } else {
@@ -54,7 +54,7 @@ export class HeartsCLIView {
                         res = this.#controller.playCard('south', this.#parseCard(args[0]));
                         break;
                 }
-                out_ta.append(`${res}\n`);
+                
             }
             cli.value = "";
         });
@@ -120,10 +120,10 @@ export class HeartsCLIView {
 
         // Uncomment the following line if you want to see four robots
         // play each other instead of entering commands
-        let south_robot = new HeartsRobotKmp(this.#model, this.#controller, 'south');
+        // let south_robot = new HeartsRobotKmp(this.#model, this.#controller, 'south');
 
         let west_robot = new HeartsRobotKmp(this.#model, this.#controller, 'west');
-        let north_robot = new HeartsRobotKmp(this.#model, this.#controller, 'north');
+        let north_rofbot = new HeartsRobotKmp(this.#model, this.#controller, 'north');
         let east_robot = new HeartsRobotKmp(this.#model, this.#controller, 'east');
 
         this.#controller.startGame('Alice', 'Bob', 'You', 'Mike');
