@@ -2,14 +2,10 @@
     margin: auto;
     position: relative;
     left: auto;
-    -ms-transform: translateX(-50%);
-    transform: translateX(auto);
 }
 
 
-/* .rotate{
-    transform: rotate(90deg);
-} */
+
 
 *{
     text-align:center;
@@ -65,9 +61,6 @@
 }
 
 .cardpics{
-    /* get img files to correct size */
-    /* width: 62px;
-    height: 91px; */
     width: 50px;
     height: 73px;
 }
@@ -78,8 +71,6 @@
     margin: auto;
     position: relative;
     left: auto;
-    -ms-transform: translateX(-50%);
-    transform: translateX(auto);
     align-items: center; 
     justify-content: center;
 }
@@ -103,9 +94,6 @@
     height: 146px;
 }
 
-html{
-    background-color: palevioletred;
-}
 
 input{
     background-color:silver;
@@ -120,9 +108,6 @@ input[type='radio']{
     bottom:0;
 }
 
-#centerDisplay{
-    background-color: lightpink;
-}
 
 .top{
     position: absolute;

@@ -92,7 +92,7 @@ export class HeartsModel extends EventTarget {
 
     playCardIntoTrick (position, card) {
         if (this.#state != 'playing') return;
-
+        // alert(`${position}, ${card}`)
         this.#hands[position].remove([card]);
         this.#current_trick.playCard(card);
         this.dispatchEvent(new CustomEvent('trickplay', {detail: {
