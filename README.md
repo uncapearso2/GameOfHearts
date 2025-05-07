@@ -1,3 +1,5 @@
+# GameOfHearts
+Game of Hearts card game created for COMP426 - Web Programming
 # A03 - Game of Hearts
 
 In this assignment, you'll create a user interface for the game of Hearts. 
